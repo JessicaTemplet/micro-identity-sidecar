@@ -1,0 +1,5 @@
+/sidecar
+/exampleapp
+*.db
+*.db.tmp
+sessions.db
