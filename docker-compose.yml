@@ -1,0 +1,37 @@
+# Demonstrates the sidecar architectural pattern: the identity daemon runs
+# as its own container, sharing a network namespace with the application
+# container (network_mode: "service:sidecar") so the app reaches it over
+# 127.0.0.1 exactly like a co-located process would — no service discovery,
+# no mesh config, no auth code in the app image.
+version: "3.8"
+
+services:
+  sidecar:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SIDECAR_LISTEN_ADDR: "0.0.0.0:9091"
+      SIDECAR_ISSUER: "http://127.0.0.1:9091"
+      SIDECAR_KEY_ALG: "EdDSA"
+      SIDECAR_SESSION_BACKEND: "file"
+      SIDECAR_SESSION_FILE: "/data/sessions.db"
+    volumes:
+      - sidecar-data:/data
+    ports:
+      - "9091:9091" # sidecar's own endpoints, exposed for the demo
+      - "8080:8080" # the app's port — reachable here too, since it shares this container's network namespace
+
+  app:
+    build:
+      context: .
+      dockerfile: examples/exampleapp/Dockerfile
+    network_mode: "service:sidecar" # <-- the sidecar pattern: shared netns
+    environment:
+      SIDECAR_URL: "http://127.0.0.1:9091"
+      APP_LISTEN_ADDR: "0.0.0.0:8080"
+    depends_on:
+      - sidecar
+
+volumes:
+  sidecar-data:
