@@ -28,8 +28,8 @@ button{padding:8px 16px;font-size:14px;cursor:pointer}
 <p class="client">{{.ClientID}} is requesting access{{if .Scope}} to: {{.Scope}}{{end}}</p>
 {{if .Error}}<p class="err">{{.Error}}</p>{{end}}
 <form method="POST" action="/authorize">
-  <input type="text" name="username" placeholder="username" autofocus required>
-  <input type="password" name="password" placeholder="password" required>
+  <input type="text" name="username" placeholder="username" value="alice" autofocus required>
+  <input type="password" name="password" placeholder="password" value="password123" required>
   <input type="hidden" name="client_id" value="{{.ClientID}}">
   <input type="hidden" name="redirect_uri" value="{{.RedirectURI}}">
   <input type="hidden" name="response_type" value="{{.ResponseType}}">
