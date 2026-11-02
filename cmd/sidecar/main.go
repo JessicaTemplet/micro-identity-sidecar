@@ -168,7 +168,7 @@ sidecar next to whatever actually needs the auth.</p>
 <code>demo-spa</code>: it logs you in as a demo user here on this server, then exchanges the
 code for tokens right in your browser and shows you the resulting ID token claims.</p>
 <button class="btn" id="start-flow">Sign in with demo-spa &rarr;</button>
-<div class="creds">Demo users: <code>alice</code> / <code>bob</code> &middot; password <code>password123</code></div>
+<div class="creds">One click: the next screen is prefilled with the <code>guest</code> / <code>guest</code> login.</div>
 
 <h2>What's enforced</h2>
 <ul>

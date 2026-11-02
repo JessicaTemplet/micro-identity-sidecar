@@ -19,6 +19,8 @@ var loginTemplate = template.Must(template.New("login").Parse(`<!DOCTYPE html>
 body{font-family:system-ui,sans-serif;max-width:360px;margin:80px auto;color:#222}
 input{display:block;width:100%;box-sizing:border-box;padding:8px;margin:6px 0 14px;font-size:14px}
 button{padding:8px 16px;font-size:14px;cursor:pointer}
+button.demo{display:block;width:100%;padding:16px;font-size:18px;font-weight:700}
+.hint{text-align:center;font-size:14px;margin-top:12px}
 .client{color:#666;font-size:13px;margin-bottom:20px}
 .err{color:#b00020;font-size:13px;margin-bottom:12px}
 </style>
@@ -28,8 +30,8 @@ button{padding:8px 16px;font-size:14px;cursor:pointer}
 <p class="client">{{.ClientID}} is requesting access{{if .Scope}} to: {{.Scope}}{{end}}</p>
 {{if .Error}}<p class="err">{{.Error}}</p>{{end}}
 <form method="POST" action="/authorize">
-  <input type="text" name="username" placeholder="username" value="alice" autofocus required>
-  <input type="password" name="password" placeholder="password" value="password123" required>
+  <input type="text" name="username" placeholder="username" value="guest" required>
+  <input type="text" name="password" placeholder="password" value="guest" autocomplete="off" required>
   <input type="hidden" name="client_id" value="{{.ClientID}}">
   <input type="hidden" name="redirect_uri" value="{{.RedirectURI}}">
   <input type="hidden" name="response_type" value="{{.ResponseType}}">
@@ -38,9 +40,10 @@ button{padding:8px 16px;font-size:14px;cursor:pointer}
   <input type="hidden" name="nonce" value="{{.Nonce}}">
   <input type="hidden" name="code_challenge" value="{{.CodeChallenge}}">
   <input type="hidden" name="code_challenge_method" value="{{.CodeChallengeMethod}}">
-  <button type="submit">Sign in</button>
+  <button type="submit" class="demo" autofocus>Try the demo &rarr;</button>
+  <p class="hint">Guest login is already filled in. Just click or press Enter.</p>
 </form>
-<p class="client">demo users: alice / bob, password: password123</p>
+<p class="client">Other demo users: alice / bob, password: password123</p>
 </body>
 </html>`))
 

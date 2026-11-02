@@ -47,6 +47,7 @@ func NewDemoUserStore() *DemoUserStore {
 		byUsername: map[string]demoUser{
 			"alice": mk("user-alice", "alice", "password123", "Alice Anderson", "alice@example.com"),
 			"bob":   mk("user-bob", "bob", "password123", "Bob Barker", "bob@example.com"),
+			"guest": mk("user-guest", "guest", "guest", "Guest", "guest@example.com"),
 		},
 	}
 }
